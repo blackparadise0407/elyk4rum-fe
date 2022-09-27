@@ -1,0 +1,22 @@
+<div class="w-full h-full grid place-content-center" [class]="class">
+  <div class="lds-default mx-auto">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+  <p
+    *ngIf="loadingText"
+    class="font-medium text-base text-gray-700 mt-2 animate-pulse"
+  >
+    {{ loadingText }}
+  </p>
+</div>

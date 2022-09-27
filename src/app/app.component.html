@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<app-spinner
+  class="h-screen"
+  *ngIf="auth.isLoading$ | async as loading; else template"
+></app-spinner>
+
+<ng-template #template>
+  <router-outlet></router-outlet>
+</ng-template>

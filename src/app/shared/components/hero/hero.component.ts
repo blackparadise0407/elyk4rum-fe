@@ -1,11 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
 })
-export class HeroComponent {
-  @Input() hidden = false;
-
-  constructor() {}
-}
+export class HeroComponent {}

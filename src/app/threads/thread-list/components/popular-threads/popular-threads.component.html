@@ -1,3 +1,10 @@
-<section>
-  <div class="container">Popular threads</div>
+<section class="bg-blue-50 py-5">
+  <div class="container">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <app-popular-thread-card
+        *ngFor="let thread of threads"
+        [thread]="thread"
+      ></app-popular-thread-card>
+    </div>
+  </div>
 </section>

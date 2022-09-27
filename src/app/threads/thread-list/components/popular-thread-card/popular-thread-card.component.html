@@ -1,0 +1,21 @@
+<div class="w-full space-y-2" *ngIf="!!thread">
+  <div
+    class="w-full h-[160px] rounded bg-no-repeat bg-center bg-cover"
+    [style.backgroundImage]="
+      'url(https://images.spiderum.com/sp-thumbnails/70855b203b0011edba5db9e047c4f56d.jpg)'
+    "
+  ></div>
+  <div class="flex items-center text-gray-400">
+    <span class="text-xs">4 mins read</span>
+    <div class="flex-grow"></div>
+    <i class="text-lg fa-regular fa-bookmark"></i>
+  </div>
+  <h4 class="font-bold line-clamp-2">{{ thread.title }}</h4>
+  <div class="flex items-center gap-3">
+    <div class="avatar avatar--small">
+      <img src="https://i.pravatar.cc/300" alt="Avatar of user" />
+    </div>
+    <span class="text-sm font-medium">Kyle Pham</span>
+    <span class="text-xs text-gray-400">Sep 21</span>
+  </div>
+</div>
