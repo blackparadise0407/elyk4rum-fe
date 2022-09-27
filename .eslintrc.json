@@ -18,11 +18,11 @@
       ],
       "plugins": ["@typescript-eslint", "import"],
       "rules": {
+        "prettier/prettier": ["off"],
         "@angular-eslint/directive-selector": [
           "error",
           {
             "type": "attribute",
-            "prefix": "app",
             "style": "camelCase"
           }
         ],
@@ -34,6 +34,7 @@
             "style": "kebab-case"
           }
         ],
+        "@typescript-eslint/member-ordering": ["warn"],
         "@typescript-eslint/no-explicit-any": ["warn"],
         "import/no-unresolved": ["off"],
         "import/order": [

@@ -1,0 +1,39 @@
+.base-btn {
+  @apply flex items-center gap-2 px-4 py-1.5 text-sm font-medium border border-transparent focus:ring-2 focus:ring-blue-200 outline-none rounded transition-all;
+}
+
+.btn {
+  @extend .base-btn;
+  @apply bg-blue-500 hover:bg-blue-400 text-white;
+
+  &.btn-outline {
+    @apply text-blue-500 border-blue-500 hover:border-blue-400 hover:text-blue-400 bg-transparent;
+  }
+
+  &.disabled {
+    @apply pointer-events-none bg-gray-400;
+  }
+
+  &.loading {
+    @extend .disabled;
+    @apply animate-pulse;
+  }
+
+  &-text {
+    @extend .base-btn;
+    @apply bg-transparent hover:underline underline-offset-1 decoration-1;
+
+    &.btn-outline {
+      @apply text-gray-900 border-gray-900 hover:border-gray-800 hover:text-gray-800 bg-transparent;
+    }
+  }
+
+  &-danger {
+    @extend .base-btn;
+    @apply text-white bg-red-500 hover:bg-red-400 focus:ring-red-300;
+
+    &.btn-outline {
+      @apply text-red-500 border-red-500 hover:border-red-400 hover:text-red-400 bg-transparent;
+    }
+  }
+}

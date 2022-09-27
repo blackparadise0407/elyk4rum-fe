@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  auth0: { tenant: 'dev-2qy1yb53' },
 };
 
 /*

@@ -1,1 +1,52 @@
-<p>navbar works!</p>
+<nav
+  class="w-screen border-b shadow"
+  *ngVar="auth.isLoading$ | async as loading"
+>
+  <div class="h-[60px] container flex items-center">
+    <h1 class="font-bold text-blue-500">Elyk4ruM</h1>
+    <div class="flex-grow"></div>
+    <div
+      class="flex items-center gap-3"
+      *ngIf="auth.user$ | async as user; else not_auth"
+    >
+      <div class="avatar">
+        <img
+          loading="lazy"
+          [src]="user.picture"
+          [alt]="'Avatar of ' + user.name"
+        />
+      </div>
+      <app-dropdown>
+        <p innerButton class="font-medium">{{ user.name }}</p>
+        <ul>
+          <li
+            [routerLink]="['profile', user[tenant + '/uuid']]"
+            class="px-3 py-2 text-xs font-medium hover:text-blue-500 hover:bg-gray-100 transition-colors cursor-pointer"
+          >
+            Profile
+          </li>
+          <li
+            class="px-3 py-2 text-xs font-medium hover:text-blue-500 hover:bg-gray-100 transition-colors cursor-pointer"
+            (click)="auth.logout({ returnTo: document.location.origin })"
+          >
+            Logout
+          </li>
+        </ul>
+      </app-dropdown>
+    </div>
+    <ng-template #not_auth>
+      <div class="flex items-center gap-3">
+        <span [class.cursor-not-allowed]="loading">
+          <button class="btn-text" [class.loading]="loading" (click)="login()">
+            Login
+          </button>
+        </span>
+        <span [class.cursor-not-allowed]="loading">
+          <button class="btn" [class.loading]="loading" (click)="login()">
+            Sign up
+          </button>
+        </span>
+      </div>
+    </ng-template>
+  </div>
+</nav>

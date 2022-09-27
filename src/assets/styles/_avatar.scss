@@ -1,0 +1,7 @@
+.avatar {
+  @apply w-[35px] h-[35px] md:w-[40px] md:h-[40px] rounded-full overflow-hidden;
+
+  &--small {
+    @apply w-[35px] h-[35px];
+  }
+}
