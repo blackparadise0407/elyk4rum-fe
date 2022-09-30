@@ -8,6 +8,7 @@ import { PopularThreadCardComponent } from './thread-list/components/popular-thr
 import { PopularThreadsComponent } from './thread-list/components/popular-threads/popular-threads.component';
 import { ThreadCardComponent } from './thread-list/components/thread-card/thread-card.component';
 import { ThreadListViewComponent } from './thread-list/components/thread-list-view/thread-list-view.component';
+import { ThreadListComponent } from './thread-list/components/thread-list/thread-list.component';
 import { routes } from './threads.routing';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { routes } from './threads.routing';
     PopularThreadsComponent,
     ThreadCardComponent,
     PopularThreadCardComponent,
+    ThreadListComponent,
   ],
 })
 export class ThreadsModule {}

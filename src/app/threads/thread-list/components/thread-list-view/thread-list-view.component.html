@@ -1,5 +1,13 @@
 <ng-container *ngVar="auth.isAuthenticated$ | async as isAuth">
   <app-hero *ngIf="!isAuth"></app-hero>
   <app-popular-threads></app-popular-threads>
-  <div class="container">Thread list view</div>
+  <div class="container">
+    <div class="flex gap-5 mt-5">
+      <div class="flex-1">
+        <app-thread-list></app-thread-list>
+        <app-pagination></app-pagination>
+      </div>
+      <aside class="hidden xl:block w-[30%]">Side card</aside>
+    </div>
+  </div>
 </ng-container>

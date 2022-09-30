@@ -6,6 +6,6 @@
   <ng-content select="[innerButton]"></ng-content>
   <i class="fa-solid fa-caret-down"></i>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" [xPosition]="xPosition" [class]="menuClass">
   <ng-content></ng-content>
 </mat-menu>
