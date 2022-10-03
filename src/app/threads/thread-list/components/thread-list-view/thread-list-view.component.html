@@ -4,12 +4,12 @@
   <div class="container">
     <div class="flex gap-5 mt-5">
       <div class="flex-1">
-        <ng-container *ngIf="threads$ | async as threads">
+        <div *ngIf="threads$ | async as threads" class="flex flex-col gap-12">
           <app-thread-card
             *ngFor="let thread of threads; trackBy: trackById"
             [thread]="thread"
           ></app-thread-card>
-        </ng-container>
+        </div>
         <app-pagination></app-pagination>
       </div>
       <aside class="hidden xl:block w-[30%]">Side card</aside>

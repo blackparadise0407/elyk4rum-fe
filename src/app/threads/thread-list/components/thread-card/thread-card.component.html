@@ -24,8 +24,15 @@
     </h3>
     <div class="flex items-center gap-3">
       <div class="avatar">
-        <img [src]="''" alt="" />
+        <img
+          [src]="thread.createdByInfo?.avatarUrl"
+          [alt]="'Avatar of user ' + thread.createdByInfo?.name"
+        />
       </div>
+      <span class="text-gray-900 font-medium text-sm">
+        {{ thread.createdByInfo?.name }}
+      </span>
+
       <span class="text-gray-500 text-xs">Hôm qua</span>
       <div class="flex-grow"></div>
       <div class="flex items-center gap-1">
