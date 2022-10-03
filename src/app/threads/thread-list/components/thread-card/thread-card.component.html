@@ -1,1 +1,41 @@
-<p>thread-card works!</p>
+<article class="flex gap-5">
+  <div
+    [routerLink]="['/', thread.slug]"
+    class="block w-[220px] border border-gray-100 rounded bg-cover bg-center bg-no-repeat cursor-pointer"
+    [style.backgroundImage]="'url(https://picsum.photos/200)'"
+  ></div>
+  <div class="flex-1 space-y-2">
+    <div class="flex gap-3 items-start">
+      <div class="flex gap-3 items-center">
+        <span
+          class="text-gray-700 font-medium uppercase hover:text-blue-500 transition-colors cursor-pointer"
+          >Category title</span
+        >
+        <span class="text-gray-500 text-xs">4 phút đọc</span>
+      </div>
+      <div class="flex-grow"></div>
+      <i class="text-2xl far fa-bookmark text-gray-400 cursor-pointer"></i>
+    </div>
+    <h3
+      class="font-bold line-clamp-2 hover:text-blue-500 transition-colors cursor-pointer"
+      [routerLink]="['/', thread.slug]"
+    >
+      {{ thread.title }}
+    </h3>
+    <div class="flex items-center gap-3">
+      <div class="avatar">
+        <img [src]="''" alt="" />
+      </div>
+      <span class="text-gray-500 text-xs">Hôm qua</span>
+      <div class="flex-grow"></div>
+      <div class="flex items-center gap-1">
+        <i class="text-xl fas fa-caret-up text-gray-400 cursor-pointer"></i>
+        <span>3</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <i class="far fa-comment-dots text-gray-400 cursor-pointer"></i>
+        <span>2</span>
+      </div>
+    </div>
+  </div>
+</article>

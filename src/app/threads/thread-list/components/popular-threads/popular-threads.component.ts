@@ -7,27 +7,6 @@ import { Thread } from '$threads/thread-list/shared/interfaces/threads.interface
   templateUrl: './popular-threads.component.html',
 })
 export class PopularThreadsComponent {
-  public threads: Thread[] = [
-    {
-      slug: 'asdasd',
-      title: 'Test title',
-      content: 'Abcxyz',
-    },
-    {
-      slug: 'asdasd',
-      title: 'Test title',
-      content: 'Abcxyz',
-    },
-    {
-      slug: 'asdasd',
-      title: 'Test title',
-      content: 'Abcxyz',
-    },
-    {
-      slug: 'asdasd',
-      title: 'Test title',
-      content: 'Abcxyz',
-    },
-  ];
+  public threads: Thread[] = [];
   constructor() {}
 }

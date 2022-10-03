@@ -4,7 +4,13 @@
 
 export const environment = {
   production: false,
-  auth0: { tenant: 'dev-2qy1yb53' },
+  auth0: {
+    tenant: 'dev-2qy1yb53',
+    audience: 'http://localhost:8080/api',
+    domain: 'dev-2qy1yb53.us.auth0.com',
+    clientId: 'NxAuHySqCpe309f8PF3seQv1kE39tEKL',
+  },
+  apiUrl: 'http://localhost:8080',
 };
 
 /*

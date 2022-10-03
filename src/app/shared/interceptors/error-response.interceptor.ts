@@ -1,7 +1,6 @@
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpEventType,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
@@ -18,10 +17,7 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       map((event) => {
-        console.log('event', event);
-        console.log(event.type === HttpEventType.Response);
         if (event instanceof HttpResponse) {
-          console.log(event);
           return event;
         }
         return event;

@@ -5,7 +5,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
+import { APIInterceptor } from '$shared/interceptors/api.interceptor';
 import { ErrorResponseInterceptor } from '$shared/interceptors/error-response.interceptor';
 import { NetWorkAwarePreloadingStrategy } from '$shared/services/network-preload.service';
 
@@ -25,12 +27,18 @@ import { SharedModule } from './shared/shared.module';
       preloadingStrategy: NetWorkAwarePreloadingStrategy,
     }),
     AuthModule.forRoot({
-      domain: 'dev-2qy1yb53.us.auth0.com',
-      clientId: 'NxAuHySqCpe309f8PF3seQv1kE39tEKL',
+      domain: environment.auth0.domain,
+      clientId: environment.auth0.clientId,
+      audience: environment.auth0.audience,
     }),
   ],
   providers: [
     NetWorkAwarePreloadingStrategy,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: APIInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorResponseInterceptor,
