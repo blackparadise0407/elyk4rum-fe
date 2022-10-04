@@ -3,7 +3,8 @@ import { AuthGuard } from '@auth0/auth0-angular';
 
 import { NotFoundComponent } from '$shared/components/not-found/not-found.component';
 
-import { ThreadListViewComponent } from './thread-list/components/thread-list-view/thread-list-view.component';
+import { ThreadDetailViewComponent } from './components/thread-detail-view/thread-detail-view.component';
+import { ThreadListViewComponent } from './components/thread-list-view/thread-list-view.component';
 
 export const routes: Route[] = [
   {
@@ -11,13 +12,13 @@ export const routes: Route[] = [
     component: ThreadListViewComponent,
   },
   {
-    path: 'post',
+    path: 'threads/post',
     pathMatch: 'full',
     canActivate: [AuthGuard],
     component: NotFoundComponent,
   },
   {
-    path: ':slug',
-    component: NotFoundComponent,
+    path: 'threads/:slug',
+    component: ThreadDetailViewComponent,
   },
 ];

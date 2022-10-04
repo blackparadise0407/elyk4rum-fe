@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, mergeMap, withLatestFrom } from 'rxjs';
+import { forkJoin, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
 import { CategoriesService } from 'src/app/admin/shared/services/categories.service';
 
 import { SharedService } from '$shared/services/shared.service';
@@ -31,6 +31,21 @@ export class ThreadsService {
               );
           })
         ).pipe(map(() => threads))
+      )
+    );
+  }
+
+  public getThreadBySlug(slug: string) {
+    return this.http.get<Thread>(`api/threads/${slug}`).pipe(
+      switchMap((thread) =>
+        this.sharedService.getUserInfo(thread.createdBy as string).pipe(
+          withLatestFrom(this.categoriesService.getOne(thread.category)),
+          map(([user, category]) => {
+            thread.createdByInfo = user;
+            thread.categoryInfo = category;
+            return thread;
+          })
+        )
       )
     );
   }

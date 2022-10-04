@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '$shared/shared.module';
 
-import { PopularThreadCardComponent } from './thread-list/components/popular-thread-card/popular-thread-card.component';
-import { PopularThreadsComponent } from './thread-list/components/popular-threads/popular-threads.component';
-import { ThreadCardComponent } from './thread-list/components/thread-card/thread-card.component';
-import { ThreadListViewComponent } from './thread-list/components/thread-list-view/thread-list-view.component';
-import { ThreadsService } from './thread-list/shared/services/threads.service';
+import { PopularThreadCardComponent } from './components/popular-thread-card/popular-thread-card.component';
+import { PopularThreadsComponent } from './components/popular-threads/popular-threads.component';
+import { ThreadCardComponent } from './components/thread-card/thread-card.component';
+import { ThreadDetailViewComponent } from './components/thread-detail-view/thread-detail-view.component';
+import { ThreadListViewComponent } from './components/thread-list-view/thread-list-view.component';
+import { ThreadsService } from './shared/services/threads.service';
 import { routes } from './threads.routing';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { routes } from './threads.routing';
     PopularThreadsComponent,
     ThreadCardComponent,
     PopularThreadCardComponent,
+    ThreadDetailViewComponent,
   ],
   providers: [ThreadsService],
 })

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Thread } from '$threads/thread-list/shared/interfaces/threads.interface';
+import { Thread } from '$threads/shared/interfaces/threads.interface';
 
 @Component({
   selector: 'app-popular-threads',

@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { Category } from 'src/app/admin/shared/interfaces/categories.interface';
 import { CategoriesService } from 'src/app/admin/shared/services/categories.service';
 
-import { Thread } from '$threads/thread-list/shared/interfaces/threads.interface';
-import { ThreadsService } from '$threads/thread-list/shared/services/threads.service';
+import { Thread } from '$threads/shared/interfaces/threads.interface';
+import { ThreadsService } from '$threads/shared/services/threads.service';
 
 @Component({
   selector: 'app-thread-list-view',

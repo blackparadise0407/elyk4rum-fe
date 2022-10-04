@@ -7,8 +7,20 @@ export const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    loadChildren: () =>
-      import('$threads/threads.module').then((it) => it.ThreadsModule),
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('$threads/threads.module').then((it) => it.ThreadsModule),
+      },
+      {
+        path: 'categories',
+        loadChildren: () =>
+          import('$categories/categories.module').then(
+            (it) => it.CategoriesModule
+          ),
+      },
+    ],
   },
   {
     path: '**',
