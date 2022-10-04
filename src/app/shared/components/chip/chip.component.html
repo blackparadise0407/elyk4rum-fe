@@ -1,0 +1,15 @@
+<div
+  class="w-fit flex items-center gap-2 px-2 py-1.5 text-sm rounded-full cursor-pointer"
+  [style.backgroundColor]="color"
+  [class.border]="!color"
+  (click)="handleChipClick()"
+>
+  <span class="select-none">{{ label }}</span>
+  <i
+    *ngIf="icon"
+    class="cursor-pointer"
+    (click)="handleIconClick($event)"
+    [class.icon]="icon"
+    [style.color]="iconColor"
+  ></i>
+</div>

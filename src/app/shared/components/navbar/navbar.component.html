@@ -1,9 +1,11 @@
-<nav
-  class="w-screen border-b shadow"
-  *ngVar="auth.isLoading$ | async as loading"
->
+<nav class="border-b shadow" *ngVar="auth.isLoading$ | async as loading">
   <div class="h-[60px] container flex items-center">
-    <h1 class="font-bold text-blue-500">Elyk4ruM</h1>
+    <h1
+      class="font-bold text-blue-500 cursor-pointer hover:text-blue-400 transition-colors"
+      [routerLink]="['/']"
+    >
+      Elyk4ruM
+    </h1>
     <div class="flex-grow"></div>
     <div
       class="flex items-center gap-3"

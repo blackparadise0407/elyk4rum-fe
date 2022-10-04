@@ -12,7 +12,15 @@
         </div>
         <app-pagination></app-pagination>
       </div>
-      <aside class="hidden xl:block w-[30%]">Side card</aside>
+      <aside class="hidden sticky xl:block w-[30%]">
+        <div
+          *ngIf="categories$ | async as categories"
+          class="flex flex-wrap gap-2"
+        >
+          <app-chip *ngFor="let category of categories" [label]="category.name">
+          </app-chip>
+        </div>
+      </aside>
     </div>
   </div>
 </ng-container>
