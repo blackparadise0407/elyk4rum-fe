@@ -3,5 +3,6 @@ export interface User {
   email: string;
   avatarUrl: string;
   auth0Id: string;
-  name?: string;
+  uuid: string;
+  username: string;
 }

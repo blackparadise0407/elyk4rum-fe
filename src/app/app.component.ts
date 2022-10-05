@@ -11,6 +11,7 @@ import { CategoriesService } from './admin/shared/services/categories.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private stop$ = new Subject<void>();
+
   constructor(
     public auth: AuthService,
     @Inject(DOCUMENT) public document: Document,

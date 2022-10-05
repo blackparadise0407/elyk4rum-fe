@@ -1,1 +1,37 @@
-<p>pagination works!</p>
+<ul
+  class="flex flex-wrap items-center gap-3"
+  [class]="wrapperClass"
+  *ngIf="!!paginationRange.length"
+>
+  <li
+    *ngIf="currentPage > 1"
+    class="flex items-center gap-1 h-8 px-2 rounded hover:bg-gray-100 transition-colors cursor-pointer select-none"
+    (click)="handlePrevPage()"
+  >
+    <i class="text-xs fa-solid fa-angles-left"></i>
+    <span>Trước</span>
+  </li>
+  <li *ngFor="let item of paginationRange">
+    <div
+      *ngIf="item !== -1; else dotTemplate"
+      class="grid place-content-center w-8 h-8 bg-white rounded hover:bg-gray-100 transition-colors cursor-pointer select-none"
+      [ngClass]="{
+        'bg-blue-500 text-white pointer-events-none': currentPage === item
+      }"
+      (click)="handlePageChange(item)"
+    >
+      {{ item }}
+    </div>
+    <ng-template #dotTemplate>
+      <span class="select-none">...</span>
+    </ng-template>
+  </li>
+  <li
+    *ngIf="currentPage < totalPage"
+    class="flex items-center gap-1 h-8 px-2 rounded hover:bg-gray-100 transition-colors cursor-pointer select-none"
+    (click)="handleNextPage()"
+  >
+    <span>Tiếp</span>
+    <i class="text-xs fa-solid fa-angles-left rotate-180"></i>
+  </li>
+</ul>

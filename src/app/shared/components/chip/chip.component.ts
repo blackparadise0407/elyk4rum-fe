@@ -1,10 +1,18 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 import { shadeColor } from '$shared/utils/color.util';
 
 @Component({
   selector: 'app-chip',
   templateUrl: './chip.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipComponent implements OnInit {
   @Input() label = '';

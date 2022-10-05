@@ -1,5 +1,10 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 
@@ -8,6 +13,7 @@ import { LoginState } from '$shared/interfaces/shared.interface';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements OnInit {
   public tenant = environment.auth0.tenant;

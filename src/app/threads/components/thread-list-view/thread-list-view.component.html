@@ -2,7 +2,7 @@
   <app-hero *ngIf="!isAuth"></app-hero>
   <app-popular-threads></app-popular-threads>
   <div class="container">
-    <div class="flex gap-5 mt-5">
+    <div class="flex gap-5 my-5">
       <div class="flex-1">
         <div *ngIf="threads$ | async as threads" class="flex flex-col gap-12">
           <app-thread-card
@@ -10,14 +10,25 @@
             [thread]="thread"
           ></app-thread-card>
         </div>
-        <app-pagination></app-pagination>
+        <app-pagination
+          *ngIf="query$ | async as query"
+          wrapperClass="w-fit mt-5 mx-auto"
+          [total]="100"
+          [currentPage]="query.page"
+          (pageChange)="handleChangePage($event)"
+          [pageSize]="10"
+        ></app-pagination>
       </div>
       <aside class="hidden sticky xl:block w-[30%]">
         <div
           *ngIf="categories$ | async as categories"
           class="flex flex-wrap gap-2"
         >
-          <app-chip *ngFor="let category of categories" [label]="category.name">
+          <app-chip
+            *ngFor="let category of categories"
+            [label]="category.name"
+            [routerLink]="['/categories', category.slug]"
+          >
           </app-chip>
         </div>
       </aside>

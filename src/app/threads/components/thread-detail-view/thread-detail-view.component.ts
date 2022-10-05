@@ -20,7 +20,6 @@ export class ThreadDetailViewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.slug = this.route.snapshot.paramMap.get('slug');
-    console.log(this.slug);
     if (this.slug) {
       this.thread$ = this.threadsService.getThreadBySlug(this.slug);
     }

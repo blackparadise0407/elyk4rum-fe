@@ -9,6 +9,7 @@ import { Thread } from '../interfaces/threads.interface';
 
 @Injectable()
 export class ThreadsService {
+  private threadsUrl = 'api/threads';
   constructor(
     private http: HttpClient,
     private sharedService: SharedService,
@@ -16,7 +17,7 @@ export class ThreadsService {
   ) {}
 
   public getThreads() {
-    return this.http.get<Thread[]>('api/threads').pipe(
+    return this.http.get<Thread[]>(this.threadsUrl).pipe(
       withLatestFrom(this.categoriesService.getEntities()),
       mergeMap(([threads, categories]) =>
         forkJoin(
@@ -36,7 +37,7 @@ export class ThreadsService {
   }
 
   public getThreadBySlug(slug: string) {
-    return this.http.get<Thread>(`api/threads/${slug}`).pipe(
+    return this.http.get<Thread>(`${this.threadsUrl}/${slug}`).pipe(
       switchMap((thread) =>
         this.sharedService.getUserInfo(thread.createdBy as string).pipe(
           withLatestFrom(this.categoriesService.getOne(thread.category)),

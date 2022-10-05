@@ -10,6 +10,8 @@ import { Category } from '../interfaces/categories.interface';
   providedIn: 'root',
 })
 export class CategoriesService extends EntitiesService<Category> {
+  private categoriesUrl = 'api/categories';
+
   constructor(private http: HttpClient) {
     super({
       intitialData: [],
@@ -18,7 +20,7 @@ export class CategoriesService extends EntitiesService<Category> {
   }
 
   public getCategories() {
-    return this.http.get<Category[]>('api/categories').pipe(
+    return this.http.get<Category[]>(this.categoriesUrl).pipe(
       tap((categories) => {
         this.setAll(categories);
       })
