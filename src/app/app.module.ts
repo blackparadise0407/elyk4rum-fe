@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 
 import { APIInterceptor } from '$shared/interceptors/api.interceptor';
@@ -30,6 +30,16 @@ import { SharedModule } from './shared/shared.module';
       domain: environment.auth0.domain,
       clientId: environment.auth0.clientId,
       audience: environment.auth0.audience,
+      httpInterceptor: {
+        allowedList: [
+          {
+            uri: `${environment.auth0.audience}/*`,
+            tokenOptions: {
+              audience: environment.auth0.audience,
+            },
+          },
+        ],
+      },
     }),
   ],
   providers: [
@@ -37,6 +47,11 @@ import { SharedModule } from './shared/shared.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthHttpInterceptor,
       multi: true,
     },
     {

@@ -1,6 +1,6 @@
 <div
-  *ngIf="windowScrolled"
-  class="fixed bottom-10 right-10 w-10 h-10 grid place-content-center bg-blue-500 rounded-full shadow cursor-pointer"
+  class="fixed bottom-10 right-10 w-10 h-10 grid place-content-center bg-blue-500 rounded-full shadow cursor-pointer transition-transform duration-200 delay-100"
+  [ngClass]="windowScrolled ? 'scale-100' : 'scale-0'"
   (click)="scrollToTop()"
 >
   <i class="text-white fa-solid fa-chevron-up pointer-events-none"></i>

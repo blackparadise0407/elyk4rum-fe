@@ -4,5 +4,5 @@ export interface User {
   avatarUrl: string;
   auth0Id: string;
   uuid: string;
-  username: string;
+  displayName: string;
 }

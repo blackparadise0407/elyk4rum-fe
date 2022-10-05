@@ -31,12 +31,15 @@
       <div class="avatar">
         <img
           [src]="thread.createdByInfo?.avatarUrl"
-          [alt]="'Avatar of user ' + thread.createdByInfo?.name"
+          [alt]="'Avatar of user ' + thread.createdByInfo?.displayName"
         />
       </div>
-      <span class="text-gray-900 font-medium text-sm">
-        {{ thread.createdByInfo?.email }}
-      </span>
+      <a
+        class="text-gray-900 font-medium text-sm cursor-pointer"
+        [routerLink]="['/profiles', thread.createdByInfo?.uuid]"
+      >
+        {{ thread.createdByInfo?.displayName }}
+      </a>
 
       <span class="text-gray-500 text-xs">{{
         thread.createdAt | date: 'DD MMMM'
