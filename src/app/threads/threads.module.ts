@@ -12,6 +12,7 @@ import { ThreadDetailViewComponent } from './components/thread-detail-view/threa
 import { ThreadListViewComponent } from './components/thread-list-view/thread-list-view.component';
 import { ThreadsService } from './shared/services/threads.service';
 import { routes } from './threads.routing';
+import { ContentEditorComponent } from './components/content-editor/content-editor.component';
 
 @NgModule({
   imports: [CommonModule, SharedModule, RouterModule.forChild(routes)],
@@ -22,6 +23,7 @@ import { routes } from './threads.routing';
     PopularThreadCardComponent,
     ThreadDetailViewComponent,
     ThreadCreateViewComponent,
+    ContentEditorComponent,
   ],
   providers: [ThreadsService],
 })

@@ -37,6 +37,7 @@ import { SharedModule } from './shared/shared.module';
             tokenOptions: {
               audience: environment.auth0.audience,
             },
+            allowAnonymous: true,
           },
         ],
       },
