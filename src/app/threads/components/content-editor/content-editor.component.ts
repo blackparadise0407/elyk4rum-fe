@@ -4,20 +4,20 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import EditorJS from '@editorjs/editorjs';
 import { Observable, Subject } from 'rxjs';
 
 import { SupabaseService } from '$shared/services/supabase.service';
 
 import { editorConfig } from './editorjs.config';
 
+declare const EditorJS: any;
 @Component({
   selector: 'app-content-editor',
   templateUrl: './content-editor.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentEditorComponent implements OnInit, OnDestroy {
-  public editor!: EditorJS;
+  public editor!: any;
   public editorData: any;
   public editorObserver!: MutationObserver;
 
@@ -42,7 +42,7 @@ export class ContentEditorComponent implements OnInit, OnDestroy {
   }
 
   public saveEditorData(): void {
-    this.editor.save().then((outputData) => {
+    this.editor.save().then((outputData: any) => {
       this.editorData = JSON.stringify(outputData, null, 2);
     });
   }

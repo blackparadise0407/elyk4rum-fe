@@ -1,25 +1,27 @@
-import { EditorConfig } from '@editorjs/editorjs';
-
 import { SupabaseService } from '$shared/services/supabase.service';
 
-export const editorConfig = (
-  supabaseService: SupabaseService
-): EditorConfig => ({
+declare const Header: any;
+declare const Link: any;
+declare const LoginState: any;
+declare const Embed: any;
+declare const Quote: any;
+declare const List: any;
+declare const ImageTool: any;
+
+export const editorConfig = (supabaseService: SupabaseService): any => ({
   holder: 'editorjs',
+  placeholder: 'Bắt đầu viết một thứ gì đó',
   tools: {
-    Marker: {
-      class: require('@editorjs/Marker'),
-    },
     header: {
-      class: require('@editorjs/header'),
+      class: Header,
       inlineToolbar: ['link', 'bold', 'italic'],
     },
     list: {
-      class: require('@editorjs/list'),
+      class: List,
       inlineToolbar: ['link', 'bold'],
     },
     embed: {
-      class: require('@editorjs/embed'),
+      class: Embed,
       inlineToolbar: true,
       config: {
         services: {
@@ -29,7 +31,7 @@ export const editorConfig = (
       },
     },
     quote: {
-      class: require('@editorjs/quote'),
+      class: Quote,
       inlineToolbar: true,
       shortcut: 'CMD+SHIFT+O',
       config: {
@@ -38,7 +40,7 @@ export const editorConfig = (
       },
     },
     image: {
-      class: require('@editorjs/image'),
+      class: ImageTool,
       config: {
         uploader: {
           uploadByFile(file: File) {

@@ -1,3 +1,10 @@
-<div class="container py-10">
+<div class="post-container mx-auto py-10">
+  <textarea
+    cdkTextareaAutosize
+    class="w-full h-auto font-mont font-semibold text-3xl tracking-wide resize-none outline-none border-none"
+    placeholder="Tiêu đề bài viết..."
+    style="word-spacing: 0.1rem"
+    [formControl]="titleCtrl"
+  ></textarea>
   <app-content-editor></app-content-editor>
 </div>
