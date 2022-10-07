@@ -1,5 +1,7 @@
 import {
+  HeaderBlock,
   ImageBlock,
+  ListBlock,
   OutputData,
   ParagraphBlock,
 } from '$shared/interfaces/editorjs.interface';
@@ -15,6 +17,12 @@ export const buildMarkup = (jsonData: OutputData) => {
       case 'image':
         temp += buildImage(currBlock as ImageBlock);
         break;
+      case 'list':
+        temp += buildList(currBlock as ListBlock);
+        break;
+      case 'header':
+        temp += buildHeader(currBlock as HeaderBlock);
+        break;
       default:
         break;
     }
@@ -26,7 +34,7 @@ const buildParagraph = (block: ParagraphBlock) => {
   const {
     data: { text },
   } = block;
-  return `<p class="text-sm md:text-lg leading-normal tracking-wide"   style="word-spacing: 0.1rem">${text}</p>`;
+  return `<p>${text}</p>`;
 };
 
 const buildImage = (block: ImageBlock) => {
@@ -49,4 +57,33 @@ const buildImage = (block: ImageBlock) => {
                 : ''
             }
           </div>`;
+};
+
+const buildList = (block: ListBlock) => {
+  const {
+    data: { items, style },
+  } = block;
+
+  const tagName = style === 'ordered' ? 'ol' : 'ul';
+
+  const listClass = ((style: typeof block.data.style) => {
+    if (style === 'ordered') {
+      return 'list-decimal';
+    }
+    return 'list-disc';
+  })(style);
+
+  return `<${tagName} class='${listClass} pl-8'>
+  ${items.map((item) => `<li>${item}</li>`).join('')}
+  </${tagName}>`;
+};
+
+const buildHeader = (block: HeaderBlock) => {
+  const {
+    data: { level, text },
+  } = block;
+
+  const tagName = 'h' + level;
+
+  return `<${tagName} class='font-semibold'>${text}</${tagName}>`;
 };
