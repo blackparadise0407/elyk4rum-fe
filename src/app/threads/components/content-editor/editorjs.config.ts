@@ -1,9 +1,6 @@
 import { SupabaseService } from '$shared/services/supabase.service';
 
 declare const Header: any;
-declare const Link: any;
-declare const LoginState: any;
-declare const Embed: any;
 declare const Quote: any;
 declare const List: any;
 declare const ImageTool: any;
@@ -19,16 +16,6 @@ export const editorConfig = (supabaseService: SupabaseService): any => ({
     list: {
       class: List,
       inlineToolbar: ['link', 'bold'],
-    },
-    embed: {
-      class: Embed,
-      inlineToolbar: true,
-      config: {
-        services: {
-          youtube: true,
-          coub: true,
-        },
-      },
     },
     quote: {
       class: Quote,

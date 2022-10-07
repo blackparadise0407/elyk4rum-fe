@@ -1,16 +1,19 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { debounceTime, Observable, skip, Subject, takeUntil } from 'rxjs';
 
 import { SupabaseService } from '$shared/services/supabase.service';
+import { buildMarkup } from '$shared/utils/editorjs.util';
 
 import { editorConfig } from './editorjs.config';
 
 declare const EditorJS: any;
+
 @Component({
   selector: 'app-content-editor',
   templateUrl: './content-editor.component.html',
@@ -20,19 +23,23 @@ export class ContentEditorComponent implements OnInit, OnDestroy {
   public editor!: any;
   public editorData: any;
   public editorObserver!: MutationObserver;
+  public markup = '';
 
   private stop$ = new Subject<void>();
 
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   public ngOnInit(): void {
     this.editor = new EditorJS(editorConfig(this.supabaseService));
 
-    // this.detectEditorChanges()
-    //   .pipe(debounceTime(200), skip(1), takeUntil(this.stop$))
-    //   .subscribe((data) => {
-    //     this.saveEditorData();
-    //   });
+    this.detectEditorChanges()
+      .pipe(debounceTime(500), skip(1), takeUntil(this.stop$))
+      .subscribe(() => {
+        this.saveEditorData();
+      });
   }
 
   public ngOnDestroy(): void {
@@ -43,7 +50,9 @@ export class ContentEditorComponent implements OnInit, OnDestroy {
 
   public saveEditorData(): void {
     this.editor.save().then((outputData: any) => {
-      this.editorData = JSON.stringify(outputData, null, 2);
+      console.log(outputData);
+      this.markup = buildMarkup(outputData);
+      this.cd.detectChanges();
     });
   }
 
