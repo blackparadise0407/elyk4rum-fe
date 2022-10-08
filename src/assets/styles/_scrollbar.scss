@@ -1,0 +1,16 @@
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  @apply shadow-inner bg-white;
+}
+
+*::-webkit-scrollbar-thumb {
+  @apply bg-blue-400 rounded hover:bg-blue-300 cursor-pointer transition-colors;
+}
+
+.cdk-global-scrollblock {
+  overflow-y: auto !important;
+}

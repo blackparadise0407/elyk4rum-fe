@@ -16,19 +16,19 @@
       *ngIf="auth.user$ | async as user; else not_auth"
     >
       <div
-        class="grid place-content-center p-2.5 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+        class="grid place-content-center h-9 w-9 rounded hover:bg-gray-100 transition-colors cursor-pointer"
       >
-        <i class="text-gray-500 fa-solid fa-magnifying-glass"></i>
+        <i class="text-base text-gray-500 fa-solid fa-magnifying-glass"></i>
       </div>
       <div
-        class="grid place-content-center p-2.5 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+        class="grid place-content-center h-9 w-9 rounded hover:bg-gray-100 transition-colors cursor-pointer"
       >
-        <i class="text-gray-500 fa-regular fa-envelope"></i>
+        <i class="text-base text-gray-500 fa-regular fa-envelope"></i>
       </div>
       <div
-        class="grid place-content-center p-2.5 rounded hover:bg-gray-100 transition-colors cursor-pointer"
+        class="grid place-content-center h-9 w-9 rounded hover:bg-gray-100 transition-colors cursor-pointer"
       >
-        <i class="text-blue-500 fa-regular fa-bell"></i>
+        <i class="text-base text-blue-500 fa-regular fa-bell"></i>
       </div>
       <button class="btn btn-outline" routerLink="/threads/post">
         <i class="fa-regular fa-pen-to-square"></i>

@@ -49,7 +49,7 @@ const buildImage = (block: ImageBlock) => {
 
   return `<div class='rounded ${withBackground ? 'p-2 bg-gray-100' : ''} ${
     withBorder ? 'border border-gray-200' : ''
-  } overflow-hidden'>
+  }overflow-hidden'>
             <img class='mx-auto' src='${url}' loading='lazy' />
             ${
               caption

@@ -6,5 +6,18 @@
     style="word-spacing: 0.1rem"
     [formControl]="titleCtrl"
   ></textarea>
-  <app-content-editor></app-content-editor>
+  <app-content-editor (edit)="handleEditorChange($event)"></app-content-editor>
+  <div
+    class="fixed left-1/2 -translate-x-1/2 bottom-[5%] flex items-center gap-3 z-[998] opacity-0 transition-all ease-in-out"
+    [ngClass]="
+      editorData?.blocks?.length
+        ? 'translate-y-0 !opacity-100'
+        : 'translate-y-[150px]'
+    "
+  >
+    <button class="btn-text btn-outline shadow !no-underline !bg-white">
+      Lưu nháp
+    </button>
+    <button class="btn shadow" (click)="openDialog()">Tiếp tục</button>
+  </div>
 </div>

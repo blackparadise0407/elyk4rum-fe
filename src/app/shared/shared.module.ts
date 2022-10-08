@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 
@@ -35,7 +36,7 @@ const _exports = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, MatMenuModule],
+  imports: [CommonModule, MatDialogModule, RouterModule, MatMenuModule],
   exports: [_exports],
   declarations: [_exports],
   providers: [],

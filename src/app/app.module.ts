@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -59,6 +60,14 @@ import { SharedModule } from './shared/shared.module';
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorResponseInterceptor,
       multi: true,
+    },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        minWidth: 400,
+        closeOnNavigation: true,
+        hasBackdrop: true,
+      },
     },
   ],
   bootstrap: [AppComponent],
