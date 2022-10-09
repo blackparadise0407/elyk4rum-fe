@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { SharedModule } from '$shared/shared.module';
 
+import { AdditionalCreateThreadComponent } from './components/additional-create-thread/additional-create-thread.component';
 import { ContentEditorComponent } from './components/content-editor/content-editor.component';
 import { PopularThreadCardComponent } from './components/popular-thread-card/popular-thread-card.component';
 import { PopularThreadsComponent } from './components/popular-threads/popular-threads.component';
@@ -21,6 +23,7 @@ import { routes } from './threads.routing';
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
+    NgSelectModule,
     RouterModule.forChild(routes),
     TextFieldModule,
   ],
@@ -32,6 +35,7 @@ import { routes } from './threads.routing';
     ThreadDetailViewComponent,
     ThreadCreateViewComponent,
     ContentEditorComponent,
+    AdditionalCreateThreadComponent,
   ],
   providers: [ThreadsService],
 })

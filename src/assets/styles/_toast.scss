@@ -1,0 +1,5 @@
+.toast-container {
+  .ngx-toastr {
+    @apply p-4 shadow rounded bg-white hover:shadow-md transition-shadow;
+  }
+}

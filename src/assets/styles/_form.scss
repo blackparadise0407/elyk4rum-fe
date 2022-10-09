@@ -1,0 +1,7 @@
+.form-group {
+  & > label {
+    & > span {
+      @apply ml-1 text-gray-500 text-xs font-medium italic;
+    }
+  }
+}

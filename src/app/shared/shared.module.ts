@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { ChipComponent } from './components/chip/chip.component';
 import { DropDownComponent } from './components/dropdown/dropdown.component';
@@ -36,7 +38,14 @@ const _exports = [
 ];
 
 @NgModule({
-  imports: [CommonModule, MatDialogModule, RouterModule, MatMenuModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    NgSelectModule,
+    FormsModule,
+    RouterModule,
+    MatMenuModule,
+  ],
   exports: [_exports],
   declarations: [_exports],
   providers: [],
