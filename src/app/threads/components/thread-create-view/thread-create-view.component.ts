@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { CategoriesService } from 'src/app/admin/shared/services/categories.service';
 
 import { OutputData } from '$shared/interfaces/editorjs.interface';
 import { ToastService } from '$shared/services/toast.service';
 
-import { AdditionalCreateThreadComponent } from '../additional-create-thread/additional-create-thread.component';
+import {
+  AdditionalCreateThreadComponent,
+  AdditionalCreateThreadDialogData,
+} from '../additional-create-thread/additional-create-thread.component';
 
 @Component({
   selector: 'app-thread-create-view',
@@ -18,7 +22,11 @@ export class ThreadCreateViewComponent {
   public titleCtrl = new FormControl('', [Validators.required]);
   public editorData?: OutputData;
 
-  constructor(private dialog: MatDialog, private toast: ToastService) {}
+  constructor(
+    private dialog: MatDialog,
+    private categoriesService: CategoriesService,
+    private toast: ToastService
+  ) {}
 
   public handleEditorChange(jsonData: OutputData) {
     this.editorData = jsonData;
@@ -32,6 +40,13 @@ export class ThreadCreateViewComponent {
       return;
     }
 
-    const dialogRef = this.dialog.open(AdditionalCreateThreadComponent, {});
+    const dialogRef = this.dialog.open<
+      AdditionalCreateThreadComponent,
+      AdditionalCreateThreadDialogData
+    >(AdditionalCreateThreadComponent, {
+      data: {
+        categories$: this.categoriesService.getAll(),
+      },
+    });
   }
 }

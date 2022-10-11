@@ -9,6 +9,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { ChipComponent } from './components/chip/chip.component';
 import { DropDownComponent } from './components/dropdown/dropdown.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FormErrorComponent } from './components/form-error/form-error.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
@@ -31,6 +32,7 @@ const _exports = [
   ChipComponent,
   FooterComponent,
   ScrollToTopComponent,
+  FormErrorComponent,
   // Pipes
   DatePipe,
   // Directives
