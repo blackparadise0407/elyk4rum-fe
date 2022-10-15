@@ -5,6 +5,7 @@ import {
   IdSelector,
   Update,
 } from '$shared/interfaces/entities.interface';
+import { simpleUnique } from '$shared/utils/index.util';
 
 export class EntitiesService<T> {
   private entities$ = new BehaviorSubject<Record<string, T>>({});
@@ -84,13 +85,13 @@ export class EntitiesService<T> {
     const entities = this.entities$.getValue();
     entities[this.selectId(data)] = data;
     this.entities$.next(entities);
-    this.ids.next(newIds.sort(this.sortComparer));
+    this.ids.next(simpleUnique(newIds).sort(this.sortComparer));
   }
 
   public addMany(data: T[]) {
-    const newsIds = this.ids.getValue();
-    newsIds.push(...data.map((item) => this.selectId(item)));
-    this.ids.next(newsIds.sort(this.sortComparer));
+    const newIds = this.ids.getValue();
+    newIds.push(...data.map((item) => this.selectId(item)));
+    this.ids.next(simpleUnique(newIds).sort(this.sortComparer));
     const entities = this.entities$.getValue();
 
     data.forEach((item) => {

@@ -2,12 +2,12 @@ import {
   HeaderBlock,
   ImageBlock,
   ListBlock,
-  OutputData,
+  OutputBlockData,
   ParagraphBlock,
+  QuoteBlock,
 } from '$shared/interfaces/editorjs.interface';
 
-export const buildMarkup = (jsonData: OutputData) => {
-  const { blocks } = jsonData;
+export const buildMarkup = (blocks: OutputBlockData[]) => {
   return blocks.reduce((template, currBlock) => {
     let temp = '';
     switch (currBlock.type) {
@@ -22,6 +22,9 @@ export const buildMarkup = (jsonData: OutputData) => {
         break;
       case 'header':
         temp += buildHeader(currBlock as HeaderBlock);
+        break;
+      case 'quote':
+        temp += builderQuote(currBlock as QuoteBlock);
         break;
       default:
         break;
@@ -86,4 +89,16 @@ const buildHeader = (block: HeaderBlock) => {
   const tagName = 'h' + level;
 
   return `<${tagName} class='font-semibold'>${text}</${tagName}>`;
+};
+
+const builderQuote = (block: QuoteBlock) => {
+  const {
+    data: { caption, text },
+  } = block;
+
+  return `<figure class="relative p-3 bg-blue-50 rounded">
+    <blockquote class="ml-10">${text}</blockquote>
+    <i class="absolute top-2 left-2 fa-solid fa-quote-left text-3xl text-blue-500"></i>
+    <figcaption class="text-right mt-1 italic">— ${caption}</figcaption>
+  </figure>`;
 };

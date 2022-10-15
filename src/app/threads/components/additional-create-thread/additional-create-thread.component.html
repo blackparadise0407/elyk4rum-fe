@@ -9,25 +9,31 @@
     <app-form-error [control]="descCtrl" displayName="Mô tả"></app-form-error>
   </div>
   <div class="form-group">
-    <label for="tags">Thêm thẻ tag<span>(tối đa 5 thẻ)</span></label>
+    <label for="tagIds">Thêm thẻ tag<span>(tối đa 5 thẻ)</span></label>
     <ng-select
       class="select"
-      id="tags"
-      formControlName="tags"
-      [items]="[]"
+      id="tagIds"
+      formControlName="tagIds"
+      [items]="tags$ | async"
       bindLabel="name"
       bindValue="id"
       appendTo="body"
+      [maxSelectedItems]="5"
       [multiple]="true"
+      (search)="handleSearch($event)"
+      [addTag]="handleAddNewTag"
+      addTagText="Thêm thẻ"
+      (keypress)="handleKeyPress($event)"
     >
     </ng-select>
+    <app-form-error [control]="tagsCtrl" displayName="Tag"></app-form-error>
   </div>
   <div class="form-group">
-    <label for="category">Danh mục</label>
+    <label for="categoryId">Danh mục</label>
     <ng-select
       class="select"
-      id="category"
-      formControlName="category"
+      id="categoryId"
+      formControlName="categoryId"
       [items]="data.categories$ | async"
       bindLabel="name"
       bindValue="id"

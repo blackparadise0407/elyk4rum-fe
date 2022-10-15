@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { parse, ParseOptions, stringify, StringifyOptions } from 'query-string';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 const FORMAT: ParseOptions & StringifyOptions = {
   arrayFormat: 'comma',
@@ -10,12 +11,18 @@ const FORMAT: ParseOptions & StringifyOptions = {
 };
 
 @Injectable({ providedIn: 'root' })
-export class QueryParamsService<T> {
+export class QueryParamsService<T> implements OnDestroy {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private queryParams = new BehaviorSubject<T>({} as T);
+  private stop$ = new Subject<void>();
 
-  constructor(private location: Location) {
+  constructor(private location: Location, private route: ActivatedRoute) {
     this.queryParams.next(this.getQueryParams());
+  }
+
+  public ngOnDestroy(): void {
+    this.stop$.next();
+    this.stop$.complete();
   }
 
   public get queryParams$() {
@@ -36,5 +43,6 @@ export class QueryParamsService<T> {
 
   public clear() {
     this.queryParams.next({} as T);
+    this.location.replaceState(window.location.pathname);
   }
 }

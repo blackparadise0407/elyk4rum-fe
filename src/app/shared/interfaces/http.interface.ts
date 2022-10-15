@@ -17,3 +17,12 @@ export interface HttpWrapperOptions {
           | ReadonlyArray<string | number | boolean>;
       };
 }
+
+export interface CustomHttpError {
+  statusCode: number;
+  error: string;
+  message: string[];
+  errors: any;
+  timestamp: Date;
+  path: string;
+}

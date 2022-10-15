@@ -20,6 +20,7 @@ export class ThreadCardComponent implements OnInit {
   constructor() {}
 
   public ngOnInit(): void {
-    this.minsRead = Math.round(this.thread.content.split(' ').length / WPM);
+    // this.minsRead = Math.round(this.thread.content.split(' ').length / WPM);
+    this.minsRead = Math.round(500 / WPM);
   }
 }

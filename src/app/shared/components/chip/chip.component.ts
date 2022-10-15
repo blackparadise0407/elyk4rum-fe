@@ -19,6 +19,7 @@ export class ChipComponent implements OnInit {
   @Input() color = '';
   @Input() iconColor = '';
   @Input() icon = '';
+  @Input() small = false;
   @Output() iconClick = new EventEmitter<void>();
   @Output() chipClick = new EventEmitter<void>();
 

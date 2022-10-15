@@ -5,11 +5,12 @@ import { CategoriesService } from 'src/app/admin/shared/services/categories.serv
 
 import { SharedService } from '$shared/services/shared.service';
 
-import { Thread } from '../interfaces/threads.interface';
+import { CreateThreadDto, Thread } from '../interfaces/threads.interface';
 
 @Injectable()
 export class ThreadsService {
   private threadsUrl = 'api/threads';
+
   constructor(
     private http: HttpClient,
     private sharedService: SharedService,
@@ -49,5 +50,10 @@ export class ThreadsService {
         )
       )
     );
+  }
+
+  public create(payload: CreateThreadDto) {
+    const path = `${this.threadsUrl}`;
+    return this.http.post<Thread>(path, payload);
   }
 }

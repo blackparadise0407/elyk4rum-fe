@@ -12,10 +12,25 @@ ng-select.select {
   &.ng-select-multiple {
     .ng-value-container {
       .ng-value {
-        @apply px-2 py-0.5 mr-1.5 bg-gray-100 rounded;
+        background-color: rgb(243 244 246) !important;
+        @apply px-2 py-0.5 mr-1.5 bg-gray-100 rounded truncate;
 
         .ng-value-icon {
           @apply mr-1;
+
+          &:hover {
+            background-color: rgb(243 244 246) !important;
+          }
+
+          &.left {
+            border-right: 0 !important;
+            @apply relative;
+
+            &::after {
+              content: '';
+              @apply absolute top-1/2 right-0 w-[1px] h-[60%] bg-gray-400 -translate-y-1/2;
+            }
+          }
         }
 
         .ng-value-label {
@@ -36,14 +51,19 @@ ng-select.select {
 ng-dropdown-panel.ng-dropdown-panel {
   @apply max-h-[200px] mt-3 bg-white rounded shadow overflow-x-hidden overflow-y-auto;
 
-  .ng-option {
-    @apply p-2 hover:bg-blue-50 transition-colors;
+  .ng-dropdown-panel-items {
+    .ng-option {
+      @apply p-2 hover:bg-blue-50 transition-colors;
 
-    &.ng-option-selected {
-      @apply bg-blue-500 text-white;
+      .ng-tag-label {
+      }
 
-      .ng-option-label {
-        font-weight: 500 !important;
+      &.ng-option-selected {
+        @apply bg-blue-500 text-white;
+
+        .ng-option-label {
+          font-weight: 500 !important;
+        }
       }
     }
   }

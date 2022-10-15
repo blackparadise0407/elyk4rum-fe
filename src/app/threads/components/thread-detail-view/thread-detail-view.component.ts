@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
+import { buildMarkup } from '$shared/utils/editorjs.util';
 import { Thread } from '$threads/shared/interfaces/threads.interface';
 import { ThreadsService } from '$threads/shared/services/threads.service';
 
@@ -12,7 +13,9 @@ import { ThreadsService } from '$threads/shared/services/threads.service';
 })
 export class ThreadDetailViewComponent implements OnInit {
   public thread$?: Observable<Thread>;
+  public content?: string;
   private slug?: string | null;
+
   constructor(
     private route: ActivatedRoute,
     private threadsService: ThreadsService
@@ -21,7 +24,11 @@ export class ThreadDetailViewComponent implements OnInit {
   public ngOnInit(): void {
     this.slug = this.route.snapshot.paramMap.get('slug');
     if (this.slug) {
-      this.thread$ = this.threadsService.getThreadBySlug(this.slug);
+      this.thread$ = this.threadsService.getThreadBySlug(this.slug).pipe(
+        tap((thread) => {
+          this.content = buildMarkup(thread.blocks);
+        })
+      );
     }
   }
 }

@@ -1,5 +1,8 @@
 <div
-  class="w-fit flex items-center gap-2 px-2 py-1.5 text-sm rounded-full cursor-pointer"
+  class="w-fit flex items-center rounded-full cursor-pointer"
+  [ngClass]="
+    small ? 'gap-2 px-1.5 py-0.5 text-xs' : 'gap-2 px-2 py-1.5 text-sm'
+  "
   [style.backgroundColor]="color"
   [class.border]="!color"
   (click)="handleChipClick()"

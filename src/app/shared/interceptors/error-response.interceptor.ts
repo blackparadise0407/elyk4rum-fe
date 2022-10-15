@@ -7,10 +7,14 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+
+import { CustomHttpError } from '$shared/interfaces/http.interface';
+import { ToastService } from '$shared/services/toast.service';
 
 @Injectable()
 export class ErrorResponseInterceptor implements HttpInterceptor {
+  constructor(private toastService: ToastService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -31,6 +35,13 @@ export class ErrorResponseInterceptor implements HttpInterceptor {
             default:
               break;
           }
+          const httpError = err.error as CustomHttpError;
+          const errMessage = httpError.error || err.message;
+          this.toastService.enqueue(errMessage, {
+            variant: 'error',
+          });
+
+          return EMPTY;
         }
         return throwError(() => err);
       })

@@ -23,16 +23,17 @@
         >
           {{ thread.createdByInfo?.displayName }}
         </h5>
-        <p class="text-gray-400 text-xs">{{ thread.createdAt | date }}</p>
+        <p class="text-gray-400 text-xs">
+          {{ thread.createdAt | date: 'DD MMMM YYYY' }}
+        </p>
       </div>
     </div>
   </div>
-  <div class="post-content px-5 md:px-0 pt-2 md:pt-10 pb-5">
-    <p
+  <div *ngIf="content" class="post-content px-5 md:px-0 pt-2 md:pt-10 pb-5">
+    <div
       class="text-sm md:text-lg leading-normal tracking-wide"
       style="word-spacing: 0.1rem"
-    >
-      {{ thread.content }}
-    </p>
+      [innerHTML]="content"
+    ></div>
   </div>
 </article>
