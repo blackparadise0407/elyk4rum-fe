@@ -1,4 +1,5 @@
 import {
+  EBlockType,
   HeaderBlock,
   ImageBlock,
   ListBlock,
@@ -11,19 +12,19 @@ export const buildMarkup = (blocks: OutputBlockData[]) => {
   return blocks.reduce((template, currBlock) => {
     let temp = '';
     switch (currBlock.type) {
-      case 'paragraph':
+      case EBlockType.paragraph:
         temp += buildParagraph(currBlock as ParagraphBlock);
         break;
-      case 'image':
+      case EBlockType.image:
         temp += buildImage(currBlock as ImageBlock);
         break;
-      case 'list':
+      case EBlockType.list:
         temp += buildList(currBlock as ListBlock);
         break;
-      case 'header':
+      case EBlockType.header:
         temp += buildHeader(currBlock as HeaderBlock);
         break;
-      case 'quote':
+      case EBlockType.quote:
         temp += builderQuote(currBlock as QuoteBlock);
         break;
       default:

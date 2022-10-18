@@ -6,7 +6,7 @@
     style="word-spacing: 0.1rem"
     [formControl]="titleCtrl"
   ></textarea>
-  <app-content-editor (edit)="handleEditorChange($event)"></app-content-editor>
+  <app-content-editor></app-content-editor>
   <div
     class="fixed left-1/2 -translate-x-1/2 bottom-[5%] flex items-center gap-3 z-[998] opacity-0 transition-all ease-in-out"
     [ngClass]="
@@ -15,8 +15,14 @@
         : 'translate-y-[150px]'
     "
   >
-    <button class="btn-text btn-outline shadow !no-underline !bg-white">
-      Lưu nháp
+    <button
+      class="btn-text btn-outline shadow"
+      [disabled]="hasContentSaved"
+      [class.loading]="loadingDraft"
+      (click)="saveAsDraft()"
+    >
+      <i *ngIf="loadingDraft" class="fas fa-spinner animate-spin"></i>
+      {{ hasContentSaved ? 'Đã lưu' : 'Lưu nháp' }}
     </button>
     <button class="btn shadow" (click)="nextStep()">Tiếp tục</button>
   </div>

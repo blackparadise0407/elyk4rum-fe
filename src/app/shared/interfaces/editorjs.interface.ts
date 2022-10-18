@@ -2,6 +2,14 @@ type BlockToolData<T extends object = any> = T;
 
 type BlockTuneData = any;
 
+export enum EBlockType {
+  paragraph = 'paragraph',
+  image = 'image',
+  header = 'header',
+  list = 'list',
+  quote = 'quote',
+}
+
 export interface OutputBlockData<
   Type extends string = string,
   Data extends object = any
@@ -16,14 +24,14 @@ export interface OutputBlockData<
 }
 
 export type ParagraphBlock = OutputBlockData<
-  'paragraph',
+  EBlockType.paragraph,
   {
     text: string;
   }
 >;
 
 export type ImageBlock = OutputBlockData<
-  'image',
+  EBlockType.image,
   {
     caption: string;
     file: {
@@ -36,7 +44,7 @@ export type ImageBlock = OutputBlockData<
 >;
 
 export type HeaderBlock = OutputBlockData<
-  'header',
+  EBlockType.header,
   {
     level: number;
     text: string;
@@ -44,7 +52,7 @@ export type HeaderBlock = OutputBlockData<
 >;
 
 export type ListBlock = OutputBlockData<
-  'list',
+  EBlockType.list,
   {
     items: string[];
     style: 'ordered' | 'unordered';
@@ -52,7 +60,7 @@ export type ListBlock = OutputBlockData<
 >;
 
 export type QuoteBlock = OutputBlockData<
-  'quote',
+  EBlockType.quote,
   {
     caption: string;
     text: string;

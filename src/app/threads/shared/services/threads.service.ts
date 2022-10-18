@@ -1,14 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, map, mergeMap, switchMap, withLatestFrom } from 'rxjs';
+import {
+  BehaviorSubject,
+  forkJoin,
+  map,
+  mergeMap,
+  switchMap,
+  withLatestFrom,
+} from 'rxjs';
 import { CategoriesService } from 'src/app/admin/shared/services/categories.service';
 
+import { OutputData } from '$shared/interfaces/editorjs.interface';
 import { SharedService } from '$shared/services/shared.service';
 
 import { CreateThreadDto, Thread } from '../interfaces/threads.interface';
 
 @Injectable()
 export class ThreadsService {
+  public editorData$ = new BehaviorSubject<OutputData | null>(null);
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   private threadsUrl = 'api/threads';
 
   constructor(

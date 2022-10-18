@@ -16,6 +16,7 @@ import {
 
 import { OutputData } from '$shared/interfaces/editorjs.interface';
 import { SupabaseService } from '$shared/services/supabase.service';
+import { ThreadsService } from '$threads/shared/services/threads.service';
 
 import { editorConfig } from './editorjs.config';
 
@@ -34,7 +35,10 @@ export class ContentEditorComponent implements OnInit, OnDestroy {
 
   private stop$ = new Subject<void>();
 
-  constructor(private supabaseService: SupabaseService) {}
+  constructor(
+    private supabaseService: SupabaseService,
+    private threadsService: ThreadsService
+  ) {}
 
   public ngOnInit(): void {
     this.editor = new EditorJS(editorConfig(this.supabaseService));
@@ -54,6 +58,7 @@ export class ContentEditorComponent implements OnInit, OnDestroy {
 
   public saveEditorData(): void {
     this.editor.save().then((outputData: any) => {
+      this.threadsService.editorData$.next(outputData);
       this.edit.emit(outputData);
     });
   }

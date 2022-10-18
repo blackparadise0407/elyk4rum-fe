@@ -19,8 +19,10 @@ export interface Thread {
 }
 
 export interface CreateThreadDto extends Pick<Thread, 'title'> {
-  categoryId: string;
-  tagIds: string[];
-  description: string;
+  categoryId?: string;
+  tagIds?: string[];
+  description?: string;
   blocks: OutputBlockData[];
+  draft?: boolean;
+  id?: string;
 }

@@ -45,7 +45,7 @@ export class AdditionalCreateThreadComponent implements OnInit, OnDestroy {
   @Output() create = new EventEmitter<AdditionalCreateThreadDialogFormData>();
 
   public formGroup = new FormGroup({
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.maxLength(500)]),
     tagIds: new FormControl([]),
     categoryId: new FormControl(undefined, [Validators.required]),
   });
@@ -92,6 +92,10 @@ export class AdditionalCreateThreadComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit() {
+    this.formGroup.markAllAsTouched();
+    if (this.formGroup.invalid) {
+      return;
+    }
     this.create.emit(this.formGroup.value);
   }
 
