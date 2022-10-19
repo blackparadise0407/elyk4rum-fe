@@ -15,7 +15,11 @@
         <span class="text-gray-500 text-xs">{{ minsRead }} phút đọc</span>
       </div>
       <div class="flex-grow"></div>
-      <i class="text-xl far fa-bookmark text-gray-400 cursor-pointer"></i>
+      <i
+        class="text-xl fa-bookmark cursor-pointer"
+        (debounceClick)="handleSaveOrUnsaveThread()"
+        [ngClass]="saved ? 'fas text-blue-400' : 'far text-gray-400'"
+      ></i>
     </div>
     <h2
       class="font-bold line-clamp-2 hover:text-blue-500 transition-colors cursor-pointer"

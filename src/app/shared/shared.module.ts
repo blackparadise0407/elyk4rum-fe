@@ -16,9 +16,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ScrollToTopComponent } from './components/scroll-to-top/scroll-to-top.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { DebounceClickDirective } from './directives/debounce-click.directive';
 import { VarDirective } from './directives/ng-var.directive';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { DatePipe } from './pipes/date.pipe';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const _exports = [
   // Components
@@ -36,6 +38,7 @@ const _exports = [
   // Pipes
   DatePipe,
   // Directives
+  DebounceClickDirective,
   VarDirective,
 ];
 
@@ -49,7 +52,7 @@ const _exports = [
     MatMenuModule,
   ],
   exports: [_exports],
-  declarations: [_exports],
+  declarations: [_exports, ConfirmDialogComponent],
   providers: [],
 })
 export class SharedModule {}

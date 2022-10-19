@@ -1,30 +1,45 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil, tap } from 'rxjs';
 
 import { EBlockType, ImageBlock } from '$shared/interfaces/editorjs.interface';
+import { SharedService } from '$shared/services/shared.service';
+import { get, getWordCount } from '$shared/utils/index.util';
 import { Thread } from '$threads/shared/interfaces/threads.interface';
 
 const WPM = 238;
 @Component({
   selector: 'app-thread-card',
   templateUrl: './thread-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ThreadCardComponent implements OnInit {
+export class ThreadCardComponent implements OnInit, OnDestroy {
   @Input() thread!: Thread;
   public minsRead = 0;
   public threadBg?: string;
+  public saved = false;
+  private stop$ = new Subject<void>();
 
-  constructor() {}
+  constructor(private sharedService: SharedService) {}
 
   public ngOnInit(): void {
-    // this.minsRead = Math.round(this.thread.content.split(' ').length / WPM);
-    this.minsRead = Math.round(500 / WPM);
     this.getThreadBg();
+    this.calculateMinsRead();
+    this.sharedService.savedThreads$
+      .pipe(
+        tap((savedThreads) => {
+          this.saved = savedThreads.includes(this.thread.id);
+        }),
+        takeUntil(this.stop$)
+      )
+      .subscribe();
+  }
+
+  public ngOnDestroy(): void {
+    this.stop$.next();
+    this.stop$.complete();
+  }
+
+  public handleSaveOrUnsaveThread() {
+    this.sharedService.saveOrUnsaveThread(this.thread.id).subscribe();
   }
 
   private getThreadBg() {
@@ -36,5 +51,12 @@ export class ThreadCardComponent implements OnInit {
       return;
     }
     this.threadBg = '/assets/images/thread-bg-placeholder.jpg';
+  }
+
+  private calculateMinsRead() {
+    const wordCount = this.thread.blocks.reduce((acc, curr) => {
+      return (acc += getWordCount(get(curr, 'data.text', '')));
+    }, 0);
+    this.minsRead = Math.ceil(wordCount / WPM);
   }
 }

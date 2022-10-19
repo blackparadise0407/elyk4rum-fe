@@ -5,4 +5,5 @@ export interface User {
   auth0Id: string;
   uuid: string;
   displayName: string;
+  savedThreads: string[];
 }

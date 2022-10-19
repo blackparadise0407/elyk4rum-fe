@@ -12,6 +12,9 @@
     <h1 class="text-gray-800 font-semibold text-2xl lg:text-4xl leading-tight">
       {{ thread.title }}
     </h1>
+    <p class="text-gray-400 text-xs lg:text-sm italic">
+      {{ thread.description }}
+    </p>
     <div class="flex gap-3 items-center">
       <div class="avatar">
         <img [src]="thread.createdByInfo?.avatarUrl" alt="" />
@@ -27,6 +30,16 @@
           {{ thread.createdAt | date: 'DD MMMM YYYY' }}
         </p>
       </div>
+      <div class="flex-grow"></div>
+      <ng-container *ngIf="currentUser$ | async as currentUser">
+        <div
+          *ngIf="currentUser.sub === thread.createdByInfo?.auth0Id"
+          class="flex gap-3"
+        >
+          <button class="btn-text btn-outline">Sửa</button>
+          <button class="btn-danger" (click)="handleDelete()">Xóa</button>
+        </div>
+      </ng-container>
     </div>
   </div>
   <div *ngIf="content" class="post-content px-5 md:px-0 pt-2 md:pt-10 pb-5">
