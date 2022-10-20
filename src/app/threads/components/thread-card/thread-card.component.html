@@ -1,9 +1,16 @@
 <article class="flex gap-5">
   <div
     [routerLink]="['/threads', thread.slug]"
-    class="block w-[220px] border border-gray-100 rounded bg-cover bg-center bg-no-repeat cursor-pointer"
-    [style.backgroundImage]="'url(' + threadBg + ')'"
-  ></div>
+    class="relative block w-[220px] border border-gray-100 rounded bg-gray-300 bg-cover bg-center bg-no-repeat cursor-pointer overflow-hidden"
+    [style.backgroundImage]="'url(/assets/images/image-placeholder.png)'"
+  >
+    <img
+      class="absolute object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full"
+      loading="lazy"
+      [src]="threadBg"
+    />
+  </div>
+
   <div class="flex-1 space-y-2">
     <div class="flex gap-3 items-start">
       <div class="flex gap-3 items-center">

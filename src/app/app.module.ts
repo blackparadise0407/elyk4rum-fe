@@ -11,6 +11,8 @@ import { environment } from 'src/environments/environment';
 
 import { APIInterceptor } from '$shared/interceptors/api.interceptor';
 import { ErrorResponseInterceptor } from '$shared/interceptors/error-response.interceptor';
+import { ManageHttpInterceptor } from '$shared/interceptors/manage-http.interceptor';
+import { HttpCancelService } from '$shared/services/http-cancel.service';
 import { NetWorkAwarePreloadingStrategy } from '$shared/services/network-preload.service';
 
 import { AppComponent } from './app.component';
@@ -47,6 +49,12 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     NetWorkAwarePreloadingStrategy,
+    HttpCancelService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ManageHttpInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIInterceptor,

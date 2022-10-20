@@ -36,8 +36,13 @@
           *ngIf="currentUser.sub === thread.createdByInfo?.auth0Id"
           class="flex gap-3"
         >
-          <button class="btn-text btn-outline">Sửa</button>
-          <button class="btn-danger" (click)="handleDelete()">Xóa</button>
+          <button
+            class="btn-text btn-outline"
+            [routerLink]="['/threads', 'edit', thread.id]"
+          >
+            Sửa
+          </button>
+          <button class="btn-danger" (click)="handleArchive()">Xóa</button>
         </div>
       </ng-container>
     </div>

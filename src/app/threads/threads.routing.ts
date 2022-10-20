@@ -17,6 +17,11 @@ export const routes: Route[] = [
     component: ThreadCreateViewComponent,
   },
   {
+    path: 'threads/edit/:id',
+    canActivate: [AuthGuard],
+    component: ThreadCreateViewComponent,
+  },
+  {
     path: 'threads/:slug',
     component: ThreadDetailViewComponent,
   },

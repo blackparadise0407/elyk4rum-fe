@@ -20,10 +20,12 @@ export class CategoriesService extends EntitiesService<Category> {
   }
 
   public getCategories() {
-    return this.http.get<Category[]>(this.categoriesUrl).pipe(
-      tap((categories) => {
-        this.setAll(categories);
-      })
-    );
+    return this.http
+      .get<Category[]>(this.categoriesUrl, { headers: { skip: 'true' } })
+      .pipe(
+        tap((categories) => {
+          this.setAll(categories);
+        })
+      );
   }
 }

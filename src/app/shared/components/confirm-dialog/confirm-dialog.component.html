@@ -5,14 +5,17 @@
   <i class="fa-solid fa-xmark"></i>
 </div>
 <div class="space-y-3">
-  <span class="text-lg font-medium">{{ title }}</span>
-  <div class="min-h-[24px]">{{ content }}</div>
+  <div class="pr-8 text-base font-medium truncate">{{ data.title }}</div>
+  <div class="min-h-[24px]">{{ data.content }}</div>
   <div class="flex justify-end items-center gap-3">
     <button class="btn-text" (click)="handleCancel()">
-      {{ cancelText }}
+      {{ data.cancelText || 'Cancel' }}
     </button>
-    <button [ngClass]="danger ? 'btn-danger' : 'btn'" (click)="handleConfirm()">
-      {{ confirmText }}
+    <button
+      [ngClass]="data.danger ? 'btn-danger' : 'btn'"
+      (click)="handleConfirm()"
+    >
+      {{ data.confirmText || 'Confirm' }}
     </button>
   </div>
 </div>

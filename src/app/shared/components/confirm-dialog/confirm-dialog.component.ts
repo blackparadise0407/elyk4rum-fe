@@ -2,30 +2,26 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
-  Input,
-  OnInit,
+  Inject,
 } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+import { ConfirmDialogData } from '$shared/interfaces/dialog.interface';
 
 @Component({
   selector: 'app-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConfirmDialogComponent implements OnInit {
-  @Input() close = new EventEmitter<void>();
-  @Input() cancel = new EventEmitter<void>();
-  @Input() confirm = new EventEmitter<void>();
-  @Input() confirmText = 'Confirm';
-  @Input() cancelText = 'Cancel';
-  @Input() content = '';
-  @Input() title = '';
-  @Input() danger = true;
-  constructor(private dialogRef: MatDialogRef<ConfirmDialogComponent>) {}
+export class ConfirmDialogComponent {
+  public close = new EventEmitter<void>();
+  public cancel = new EventEmitter<void>();
+  public confirm = new EventEmitter<void>();
 
-  public ngOnInit(): void {
-    console.log('Init');
-  }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+    private dialogRef: MatDialogRef<ConfirmDialogComponent>
+  ) {}
 
   public handleClose() {
     this.close.emit();

@@ -6,6 +6,7 @@ import {
   map,
   mergeMap,
   switchMap,
+  tap,
   withLatestFrom,
 } from 'rxjs';
 import { CategoriesService } from 'src/app/admin/shared/services/categories.service';
@@ -18,7 +19,9 @@ import { CreateThreadDto, Thread } from '../interfaces/threads.interface';
 @Injectable()
 export class ThreadsService {
   public editorData$ = new BehaviorSubject<OutputData | null>(null);
+  private editedThread = new BehaviorSubject<Thread | null>(null);
   // eslint-disable-next-line @typescript-eslint/member-ordering
+  public editedThread$ = this.editedThread.asObservable();
   private threadsUrl = 'api/threads';
 
   constructor(
@@ -62,8 +65,31 @@ export class ThreadsService {
     );
   }
 
+  public getDraftThreadById(threadId: string) {
+    const path = `${this.threadsUrl}/draft/${threadId}`;
+    return this.http.get<Thread>(path);
+  }
+
+  public loadDraftThread(threadId: string) {
+    return this.getDraftThreadById(threadId).pipe(
+      tap((thread) => {
+        this.editedThread.next(thread);
+      })
+    );
+  }
+
+  public archive(threadId: string) {
+    const path = `${this.threadsUrl}/${threadId}/archived`;
+    return this.http.patch<Thread>(path, undefined);
+  }
+
   public create(payload: CreateThreadDto) {
     const path = `${this.threadsUrl}`;
     return this.http.post<Thread>(path, payload);
+  }
+
+  public clearData() {
+    this.editorData$.next(null);
+    this.editedThread.next(null);
   }
 }

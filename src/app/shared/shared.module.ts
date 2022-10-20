@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 import { ChipComponent } from './components/chip/chip.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { DropDownComponent } from './components/dropdown/dropdown.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormErrorComponent } from './components/form-error/form-error.component';
@@ -20,7 +21,6 @@ import { DebounceClickDirective } from './directives/debounce-click.directive';
 import { VarDirective } from './directives/ng-var.directive';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { DatePipe } from './pipes/date.pipe';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 
 const _exports = [
   // Components

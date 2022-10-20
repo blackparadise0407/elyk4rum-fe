@@ -6,11 +6,12 @@ import {
 } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   distinctUntilChanged,
   filter,
   finalize,
+  of,
   Subject,
   switchMap,
   takeUntil,
@@ -22,6 +23,7 @@ import { CategoriesService } from 'src/app/admin/shared/services/categories.serv
 import { OutputData } from '$shared/interfaces/editorjs.interface';
 import { ToastService } from '$shared/services/toast.service';
 import { notNull } from '$shared/utils/rxjs.util';
+import { Thread } from '$threads/shared/interfaces/threads.interface';
 import { ThreadsService } from '$threads/shared/services/threads.service';
 
 import {
@@ -45,10 +47,12 @@ export class ThreadCreateViewComponent implements OnInit, OnDestroy {
   public editorData?: OutputData;
   public draftId?: string;
   public loadingDraft = false;
+  public draftThread?: Thread;
   private save$ = new Subject<void>();
   private stop$ = new Subject<void>();
 
   constructor(
+    private route: ActivatedRoute,
     private dialog: MatDialog,
     private categoriesService: CategoriesService,
     private threadsService: ThreadsService,
@@ -57,6 +61,52 @@ export class ThreadCreateViewComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
+    this.loadDraftThreadInfo();
+    this.initEditorSubscription();
+  }
+
+  public ngOnDestroy(): void {
+    this.stop$.next();
+    this.stop$.complete();
+    this.threadsService.clearData();
+  }
+
+  public nextStep() {
+    if (this.titleCtrl.errors) {
+      this.toast.enqueue('Tiêu đề không được để trống và bé hơn 10 ký tự', {
+        variant: 'error',
+      });
+      return;
+    }
+
+    const dialogRef = this.dialog.open<
+      AdditionalCreateThreadComponent,
+      AdditionalCreateThreadDialogData
+    >(AdditionalCreateThreadComponent, {
+      data: {
+        categories$: this.categoriesService.getAll(),
+      },
+    });
+    dialogRef.componentInstance.create
+      .pipe(takeUntil(this.stop$))
+      .subscribe((result) => {
+        this.handleCreateThread(result);
+        dialogRef.close();
+        this.router.navigate(['/']);
+      });
+  }
+
+  public saveAsDraft() {
+    if (this.titleCtrl.errors) {
+      this.toast.enqueue('Tiêu đề không được để trống và bé hơn 10 ký tự', {
+        variant: 'error',
+      });
+      return;
+    }
+    this.save$.next();
+  }
+
+  private initEditorSubscription() {
     this.threadsService.editorData$
       .pipe(
         filter(notNull),
@@ -96,44 +146,34 @@ export class ThreadCreateViewComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  public ngOnDestroy(): void {
-    this.stop$.next();
-    this.stop$.complete();
+  private loadDraftThreadInfo() {
+    this.draftId = this.route.snapshot.paramMap.get('id') ?? '';
+    if (this.draftId) {
+      this.threadsService.editedThread$
+        .pipe(
+          switchMap((thread) => {
+            if (!thread || thread.id !== this.draftId) {
+              return this.threadsService.loadDraftThread(
+                thread?.id ?? this.draftId!
+              );
+            }
+            return of(thread);
+          }),
+          tap((thread) => {
+            this.draftThread = thread;
+            this.buildForm(thread);
+          }),
+          takeUntil(this.stop$)
+        )
+        .subscribe();
+    }
   }
 
-  public nextStep() {
-    if (this.titleCtrl.errors) {
-      this.toast.enqueue('Tiêu đề không được để trống và bé hơn 10 ký tự', {
-        variant: 'error',
-      });
-      return;
-    }
-
-    const dialogRef = this.dialog.open<
-      AdditionalCreateThreadComponent,
-      AdditionalCreateThreadDialogData
-    >(AdditionalCreateThreadComponent, {
-      data: {
-        categories$: this.categoriesService.getAll(),
-      },
+  private buildForm(draftThread: Thread) {
+    this.titleCtrl.setValue(draftThread.title ?? '');
+    this.threadsService.editorData$.next({
+      blocks: draftThread.blocks,
     });
-    dialogRef.componentInstance.create
-      .pipe(takeUntil(this.stop$))
-      .subscribe((result) => {
-        this.handleCreateThread(result);
-        dialogRef.close();
-        this.router.navigate(['/']);
-      });
-  }
-
-  public saveAsDraft() {
-    if (this.titleCtrl.errors) {
-      this.toast.enqueue('Tiêu đề không được để trống và bé hơn 10 ký tự', {
-        variant: 'error',
-      });
-      return;
-    }
-    this.save$.next();
   }
 
   private handleCreateThread(result: AdditionalCreateThreadDialogFormData) {

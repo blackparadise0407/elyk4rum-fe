@@ -3,6 +3,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 
 import { EBlockType, ImageBlock } from '$shared/interfaces/editorjs.interface';
 import { SharedService } from '$shared/services/shared.service';
+import { ToastService } from '$shared/services/toast.service';
 import { get, getWordCount } from '$shared/utils/index.util';
 import { Thread } from '$threads/shared/interfaces/threads.interface';
 
@@ -18,7 +19,10 @@ export class ThreadCardComponent implements OnInit, OnDestroy {
   public saved = false;
   private stop$ = new Subject<void>();
 
-  constructor(private sharedService: SharedService) {}
+  constructor(
+    private sharedService: SharedService,
+    private toastService: ToastService
+  ) {}
 
   public ngOnInit(): void {
     this.getThreadBg();
@@ -39,7 +43,18 @@ export class ThreadCardComponent implements OnInit, OnDestroy {
   }
 
   public handleSaveOrUnsaveThread() {
-    this.sharedService.saveOrUnsaveThread(this.thread.id).subscribe();
+    this.sharedService
+      .saveOrUnsaveThread(this.thread.id)
+      .pipe(
+        tap(({ savedThreads }) => {
+          let action = '';
+          if (savedThreads.includes(this.thread.id)) {
+            action = 'Lưu';
+          } else action = 'Bỏ lưu';
+          this.toastService.enqueue(`${action} bài viết thành công`);
+        })
+      )
+      .subscribe();
   }
 
   private getThreadBg() {

@@ -12,6 +12,7 @@ import {
   Observable,
   Subject,
   takeUntil,
+  tap,
 } from 'rxjs';
 
 import { OutputData } from '$shared/interfaces/editorjs.interface';
@@ -48,6 +49,19 @@ export class ContentEditorComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.saveEditorData();
       });
+
+    this.editor.isReady.then(() => {
+      this.threadsService.editedThread$
+        .pipe(
+          tap((thread) => {
+            if (thread?.blocks) {
+              this.editor.render({ blocks: thread.blocks });
+            }
+          }),
+          takeUntil(this.stop$)
+        )
+        .subscribe();
+    });
   }
 
   public ngOnDestroy(): void {
